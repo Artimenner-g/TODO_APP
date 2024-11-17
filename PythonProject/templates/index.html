@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efe Güler Todo App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        h1 {
+            color: #3c8dbc;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        li {
+            background-color: #ffffff;
+            border-radius: 8px;
+            margin: 12px 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        li span {
+            flex-grow: 1;
+            font-size: 18px;
+            margin-left: 10px;
+            transition: color 0.3s;
+        }
+
+        li span[style="text-decoration: line-through"] {
+            color: #aaa;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4caf50;
+            font-size: 14px;
+            margin-left: 12px;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #ff5722;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        input[type="text"] {
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3c8dbc;
+            box-shadow: 0 0 8px rgba(60, 141, 188, 0.5);
+        }
+
+        button {
+            padding: 14px 20px;
+            margin-left: 15px;
+            background-color: #3c8dbc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2f7bb0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            ul {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+
+            input[type="text"] {
+                width: 250px;
+            }
+
+            button {
+                padding: 12px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Yapılacaklar</h1>
+        <ul>
+            {% for todo in todos %}
+            <li>
+                <input type="checkbox" name="done" {% if todo['done'] %} checked {%endif%} disabled onchange="this.form.submit()">
+                <span {%if todo['done'] %} style="text-decoration: line-through"{%endif%}>{{ todo['task'] }}</span>
+                <div>
+                    <a href="{{url_for('edit', index=loop.index0)}}">Düzenle</a>
+                    <a href="{{url_for('check', index=loop.index0)}}">Yapıldı</a>
+                    <a href="{{url_for('delete', index=loop.index0)}}">Sil</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ url_for('add') }}" method="post">
+            <input type="text" name="todo" placeholder="Yeni görev ekleyin...">
+            <button type="submit">Ekle</button>
+        </form>
+    </div>
+</body>
+</html>

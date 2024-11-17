@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Görev Düzenle</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #3c8dbc;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        form {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        input[type="text"] {
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 100%;
+            background-color: #f4f7fc;
+            color: #333;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3c8dbc;
+            outline: none;
+            box-shadow: 0 0 10px rgba(60, 141, 188, 0.4);
+        }
+
+        button {
+            padding: 15px;
+            background-color: #3c8dbc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2f7bb0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            form {
+                padding: 20px;
+                width: 90%;
+            }
+
+            input[type="text"], button {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Görev Düzenle</h1>
+        <form action="{{ url_for('edit', index=index) }}" method="post">
+            <input type="text" name="todo" value="{{ todo['task'] }}" placeholder="Yeni görev girin...">
+            <button type="submit">Kaydet</button>
+        </form>
+    </div>
+</body>
+</html>
